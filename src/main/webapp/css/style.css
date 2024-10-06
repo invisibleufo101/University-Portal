@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+.banner-img {	
+	background-image: url('../images/banner_cover.jpg'); 
+}
+
+.profile-banner {
+	background-size: cover; 
+	background-position: center center;
+	height: 300px;
+	position: relative;
+}
+
+.profile-intro {
+	position: absolute;
+	bottom: -30%;
+	left: 5%;
+	display: flex;
+	align-items: center;
+}
+
+.profile-area{
+	display: flex;
+	column-gap: 50px;
+	align-items: center;
+}
+
+.profile-picture{
+	padding: 10px;
+	border-radius: 50%;
+	background: #fff;
+	position: relative;
+	overflow: hidden;
+	height: 200px;
+	width: 200px;
+	background-image: url('../images/profile_skeleton.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+
+.profile-info {
+	padding-bottom: 50px;
+/* 	column-gap: 50px; */
+}
+
+.profile-name {
+	color: #fff;
+}
+
+.icon-text {
+	display: flex;
+	align-items: center;
+	column-gap: 5px;
+	color: #fff;
+}
+
+.align-text-icon {
+	display: flex;
+	align-items: center;
+}
+
+.course-info {
+	padding: 0;
+}
+
+.course-link:hover {
+	opacity: 50%;
+}
