@@ -9,20 +9,13 @@ import com.university.util.PasswordUtil;
 
 public class LoginService {
 
-	public User getLoginUser(String schoolId, String password) {
+	public User getLoginUser(String schoolId) {
+		
 		User loginUser = new QueryBuilder(User.class)
-										.select(
-										"users.roleId as roleId", 
-										"userRoles.roleName as roleName", 
-										"users.majorId as majorId", 
-										"majors.majorName as majorName", 
-										"schoolId", 
-										"name", 
-										"email", 
-										"phoneNumber", 
-										"password", 
-										"salt", 
-										"birthDate")
+									.select(
+										"users.*", 
+										"userRoles.roleName as roleName",  
+										"majors.majorName as majorName")
 									.join("userRoles", "id", "roleId")
 									.join("majors", "id", "majorId")
 										.where("schoolId", schoolId)

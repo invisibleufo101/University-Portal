@@ -32,24 +32,26 @@ public class LoginController extends Controller {
 		String schoolId = request.getParameter("school_id");
 		String password = request.getParameter("password");
 
-		User loginUser = loginService.getLoginUser(schoolId, password);
-	
+		User loginUser = loginService.getLoginUser(schoolId);
+
 		if (loginUser != null && loginService.verifyPassword(password, (String) loginUser.getField("password"), (byte[]) loginUser.getField("salt"))) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
+			// 원래 role_name으로 구별해서 로그인 routing을 다르게 하려고 했으나 한글 인식이 잘 안되어서 숫자로 구분했습니다.
+			
 			// 사용자가 관리자라면 관리자 페이지로 넘겨줍니다.
-			if (loginUser.getRoleName().equals("관리자")) {
+			if (loginUser.getRoleId() == 1L) {
 				return "admin/portal";
 			}
 			
 			// 사용자가 학생이라면 학생 페이지로 넘겨줍니다.
-			if (loginUser.getRoleName().equals("학생")) {
+			if (loginUser.getRoleId() == 2L) {
 				return "student/portal";
 			}
 			
 			// 사용자가 교수라면 교수 페이지로 넘겨줍니다.
-			if (loginUser.getRoleName().equals("교수")) {
+			if (loginUser.getRoleId() == 3L) {
 				return "professor/portal";
 			}
 		} 

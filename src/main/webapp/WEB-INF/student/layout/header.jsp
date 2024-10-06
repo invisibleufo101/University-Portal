@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<script defer src="js/bootstrap.bundle.min.js"></script>
-	<title>관리자 포털</title>
+	<title>학생 포털</title>
 </head>
 <body>
 	<!-- style="max-width: 1800px;" -->
@@ -40,7 +40,6 @@
 										</svg>
 										<span>${ loginUser.majorName }</span>
 									</div>
-									
 								</div>
 							</div>
 						</div>
@@ -49,4 +48,3 @@
 			</div>
 		</header>
 		<!-- End of Profile Banner Section -->
-		

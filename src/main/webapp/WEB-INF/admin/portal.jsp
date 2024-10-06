@@ -32,9 +32,6 @@
 </main>
 <!-- End of Portal Dashboard -->
 
-<footer>
-
-</footer>
 </div>
 </body>
 </html>

@@ -53,12 +53,17 @@ public class UserService {
 	 * @param user 계정 등록 페이지에서 받은 사용자 등록 정보
 	 */
 	public void addUser(User newUser) {
-		// Generate schoolId automatically
+		
+		System.out.println("New Password:" + newUser.getPassword());
+		
+		// 사용자의 학번/교번을 자동 생성합니다.
 		String schoolId = generateSchoolId(newUser);
 		newUser.setField("schoolId", schoolId);
 		
-		// Generating hashed password and salt for security
+		// 초기 비밀번호 값을 생년월일 6자리 (yyMMdd)으로 만듭니다.
 		String password = setBirthDateFormat(newUser);		
+		
+		// 비밀번호 값을 hashing하고 사용했던 salt도 같이 데이터베이스에 넣어줍니다.
 		byte[] salt = PasswordUtil.generateSalt();
 		String hashedPassword = PasswordUtil.hashPassword((String) password, salt);
 		newUser.setField("salt", salt);

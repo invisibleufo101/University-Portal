@@ -15,7 +15,7 @@ import com.university.querybuilder.QueryBuilder;
 public class AdminViewController extends Controller {
 
 	/**
-	 * 메인 포털 페이지를 보여주는 메소드입니다.
+	 * 메인 관리자 포털 페이지를 보여주는 메소드입니다.
 	 * 
 	 * @param request
 	 * @param response
@@ -26,7 +26,7 @@ public class AdminViewController extends Controller {
 	}
 	
 	/**
-	 * 계정 등록하는 페이지를 보여주는 메소드입니다.
+	 * 관리자가 계정 등록하는 페이지를 보여주는 메소드입니다.
 	 * 
 	 * @param request
 	 * @param response
@@ -39,6 +39,13 @@ public class AdminViewController extends Controller {
 		return "admin/accounts/add_account";
 	}
 	
+	/**
+	 * 관리자가 수강 교과목 등록하는 페이지를 보여주는 메소드입니다.
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String showRegisterEnrollment(HttpServletRequest request, HttpServletResponse response) {
 		List<Course> courses = new QueryBuilder(Course.class).select("id", "courseName").getAll();
 		List<Course> courseTypes = new QueryBuilder(Course.class).select("distinct(course_type)").getAll();

@@ -22,22 +22,31 @@ public class RouteHandler {
 		routeMap = new HashMap<>();
 		routeMap.put("/login.do", "com.university.controller.impl." + "LoginController@doLogin");
 		routeMap.put("/logout.do", "com.university.controller.impl." + "LoginController@doLogout");
+		
+		// 관리자 포털 메인 페이지
 		routeMap.put("/admin-portal.do", "com.university.controller.impl.admin." + "AdminViewController@showPortal");
 		
-		// 관리자 계정 관리
+		// 관리자 계정 관리 페이지 및 요청 처리
 		routeMap.put("/account-management.do", "com.university.controller.impl.admin." + "UserController@browse");
 		routeMap.put("/account-register.do", "com.university.controller.impl.admin." + "AdminViewController@showRegisterAccount");
 		routeMap.put("/account-add.do", "com.university.controller.impl.admin." + "UserController@add");
 		routeMap.put("/account-read.do", "com.university.controller.impl.admin." + "UserController@read");
 		routeMap.put("/account-edit.do", "com.university.controller.impl.admin." + "UserController@edit");
 		
-		// 관리자 수강 관리
+		// 관리자 수강 관리 페이지 및 요청 처리
 		routeMap.put("/enrollment-management.do", "com.university.controller.impl.admin." + "EnrollmentController@browse");
 		routeMap.put("/enrollment-register.do", "com.university.controller.impl.admin." + "AdminViewController@showRegisterEnrollment");
 		routeMap.put("/enrollment-add.do", "com.university.controller.impl.admin." + "EnrollmentController@add");
 		routeMap.put("/enrollment-read.do", "com.university.controller.impl.admin." + "EnrollmentController@read");
 		routeMap.put("/enrollment-edit.do", "com.university.controller.impl.admin." + "EnrollmentController@edit");
 		routeMap.put("/enrollment-delete.do", "com.university.controller.impl.admin." + "EnrollmentController@delete");
+		
+		// 학생 포털 메인 페이지
+		routeMap.put("/student-portal.do", "com.university.controller.impl.student." + "StudentViewController@showPortal");
+		routeMap.put("/enrollment-registration.do", "com.university.controller.impl.student." + "StudentEnrollmentController@browse");
+		routeMap.put("/enrollment-add.do", "com.university.controller.impl.student." + "StudentEnrollmentController@add");
+		routeMap.put("/enrollment-read.do", "com.university.controller.impl.student." + "StudentEnrollmentController@read");
+		
 	}
 	
 	@SuppressWarnings("unchecked")

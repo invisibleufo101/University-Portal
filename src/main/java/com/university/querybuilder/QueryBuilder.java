@@ -173,6 +173,28 @@ public class QueryBuilder {
 
 		return this;
 	}
+	
+	/**
+	 * 숫자로 된 항목의 값을 증가시키는 메소드입니다.
+	 * 
+	 * UPDATE문과 같이 쓰이도록 만들었습니다.
+	 * 
+	 * @param column
+	 * @param increment
+	 * @return
+	 */
+	public QueryBuilder setIncrement(String column, int increment) {
+		column = camelCaseToSnakeCase(column);
+		if (this.query.toString().contains("SET")) {
+			this.query.append(", ");
+		} else {
+			this.query.append("SET ");
+		}
+		
+		this.query.append(" ").append(column).append(" = ").append(column).append(" + ").append(increment);
+		
+		return this;
+	}
 
 	/**
 	 * WHERE문의 조건식을 저장하는 메소드입니다.
@@ -200,7 +222,13 @@ public class QueryBuilder {
 	 */
 	public QueryBuilder where(String column, Object value) {
 		column = camelCaseToSnakeCase(column);
-		this.query.append(" WHERE ").append(column).append(" = ?");
+		if (this.query.toString().contains("WHERE")) {
+			this.query.append(" AND ");
+		} else {
+			this.query.append(" WHERE ");
+		}
+		
+		this.query.append(column).append(" = ?");
 
 		this.parameters.add(value);
 		return this;
@@ -215,7 +243,13 @@ public class QueryBuilder {
 	 */
 	public QueryBuilder whereNot(String column, Object value) {
 		column = camelCaseToSnakeCase(column);
-		this.query.append(" WHERE NOT ").append(column).append(" = ? ");
+		if (this.query.toString().contains("WHERE")) {
+			this.query.append(" AND ");
+		} else {
+			this.query.append(" WHERE ");
+		}
+		
+		this.query.append("NOT ").append(column).append(" = ? ");
 
 		this.parameters.add(value);
 		return this;
@@ -230,8 +264,27 @@ public class QueryBuilder {
 	 */
 	public QueryBuilder whereLike(String column, String expression) {
 		column = camelCaseToSnakeCase(column);
-		this.query.append(" WHERE ").append(column).append(" LIKE '").append(expression).append("' ");
+		if (this.query.toString().contains("WHERE")) {
+			this.query.append(" AND ");
+		} else {
+			this.query.append(" WHERE ");
+		}
+		
+		this.query.append(column).append(" LIKE '").append(expression).append("' ");
 
+		return this;
+	}
+	
+	public QueryBuilder whereNull(String column) {
+		column = camelCaseToSnakeCase(column);
+		if (this.query.toString().contains(" WHERE")) {
+			this.query.append(" AND ");
+		} else {
+			this.query.append(" WHERE ");
+		}
+		
+		this.query.append(column).append(" IS NULL ");
+		
 		return this;
 	}
 
@@ -260,7 +313,7 @@ public class QueryBuilder {
 	 * @return 		  사슬 메소드를 위한 QueryBuilder 객체.
 	 * @throws SQLException
 	 */
-	public QueryBuilder or(String column, String operand, Object value) throws SQLException {
+	public QueryBuilder or(String column, String operand, Object value) {
 		column = camelCaseToSnakeCase(column);
 		this.query.append(" OR ").append(column).append(" ").append(operand).append(" ? ");
 
@@ -278,7 +331,7 @@ public class QueryBuilder {
 	 * @return 		  사슬 메소드를 위한 QueryBuilder 객체.
 	 * @throws SQLException
 	 */
-	public QueryBuilder or(String column, Object value) throws SQLException {
+	public QueryBuilder or(String column, Object value) {
 		column = camelCaseToSnakeCase(column);
 		this.query.append(" OR ").append(column).append(" = ? ");
 
@@ -296,7 +349,7 @@ public class QueryBuilder {
 	 * @return 		  사슬 메소드를 위한 QueryBuilder 객체.
 	 * @throws SQLException
 	 */
-	public QueryBuilder and(String column, String operand, Object value) throws SQLException {
+	public QueryBuilder and(String column, String operand, Object value) {
 		column = camelCaseToSnakeCase(column);
 		this.query.append(" AND ").append(column).append(" ").append(operand).append(" ? ");
 
@@ -314,7 +367,7 @@ public class QueryBuilder {
 	 * @return 		  사슬 메소드를 위한 QueryBuilder 객체.
 	 * @throws SQLException
 	 */
-	public QueryBuilder and(String column, Object value) throws SQLException {
+	public QueryBuilder and(String column, Object value) {
 		column = camelCaseToSnakeCase(column);
 		this.query.append(" AND ").append(column).append(" = ? ");
 
@@ -332,6 +385,37 @@ public class QueryBuilder {
 		
 		return this;
 	}
+	
+	public QueryBuilder leftJoin(String foreignTable, String foreignKey, String referenceKey) {
+		foreignTable = camelCaseToSnakeCase(foreignTable);
+		referenceKey = camelCaseToSnakeCase(referenceKey);
+		foreignKey = camelCaseToSnakeCase(foreignKey);
+		
+		this.query.append(" LEFT JOIN ").append(foreignTable).append(" ON ").append(foreignTable).append(".").append(foreignKey).append(" = ").append(this.table).append(".").append(referenceKey).append(" ");
+		
+		return this;
+	}
+	
+	public QueryBuilder rightJoin(String foreignTable, String foreignKey, String referenceKey) {
+		foreignTable = camelCaseToSnakeCase(foreignTable);
+		referenceKey = camelCaseToSnakeCase(referenceKey);
+		foreignKey = camelCaseToSnakeCase(foreignKey);
+		
+		this.query.append(" RIGHT JOIN ").append(foreignTable).append(" ON ").append(foreignTable).append(".").append(foreignKey).append(" = ").append(this.table).append(".").append(referenceKey).append(" ");
+		
+		return this;
+	}
+	
+	public QueryBuilder innerJoin(String foreignTable, String foreignKey, String referenceKey) {
+		foreignTable = camelCaseToSnakeCase(foreignTable);
+		referenceKey = camelCaseToSnakeCase(referenceKey);
+		foreignKey = camelCaseToSnakeCase(foreignKey);
+		
+		this.query.append(" INNER JOIN ").append(foreignTable).append(" ON ").append(foreignTable).append(".").append(foreignKey).append(" = ").append(this.table).append(".").append(referenceKey).append(" ");
+		
+		return this;
+	}
+	
 	
 	public QueryBuilder orderBy(String column, String direction) {
 		this.query.append(" ORDER BY ").append(column).append(" ").append(direction).append(" ");

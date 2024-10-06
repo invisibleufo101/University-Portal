@@ -12,6 +12,6 @@ public class UserRole extends Model {
 	private String roleName;
 	
 	public UserRole() {
-		super("user_role");
+		super("user_roles");
 	}
 }
