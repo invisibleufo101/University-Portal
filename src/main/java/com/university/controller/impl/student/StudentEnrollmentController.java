@@ -10,9 +10,11 @@ import com.university.controller.Controller;
 import com.university.model.impl.Enrollment;
 import com.university.model.impl.User;
 import com.university.service.StudentEnrollmentService;
+import com.university.validator.StudentEnrollmentValidator;
 
 public class StudentEnrollmentController extends Controller {
 
+	private StudentEnrollmentValidator validator = new StudentEnrollmentValidator();
 	private StudentEnrollmentService service = new StudentEnrollmentService();
 	
 	// GET @ enrollment-registration.do
@@ -32,6 +34,17 @@ public class StudentEnrollmentController extends Controller {
 		
 		HttpSession session = request.getSession();
 		User currentUser = (User) session.getAttribute("loginUser");
+		
+		System.out.println(validator.validate(enrollmentId));
+		if (!validator.validate(enrollmentId)) {
+			
+			// how do I send error message? where do I put it?
+			String errorMsg = "해당 교과목은 수강 신청이 불가합니다.";
+			request.setAttribute("errorStatus", true);
+			request.setAttribute("errorMsg", errorMsg);
+			
+			return "/enrollment-registration.do";
+		}
 		
 		service.addStudentEnrollment(currentUser.getId(), enrollmentId);
 		

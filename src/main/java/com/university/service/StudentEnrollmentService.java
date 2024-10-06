@@ -57,10 +57,6 @@ public class StudentEnrollmentService {
 				.where("enrollmentId", enrollmentId)
 				.get();
 		
-		System.out.println("Enrollments:");
-		System.out.println(enrollments.toString());
-		
-
 		new QueryBuilder(Enrollment.class)
 			.update()
 			.set("currentlyEnrolled", enrollments.getCnt())

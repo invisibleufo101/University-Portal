@@ -16,22 +16,34 @@ public class TestClass {
 
 	public static void main(String[] args) {
 		
-		List<Enrollment> registered = new QueryBuilder(Enrollment.class)
-				.select(
-					"courses.courseName as courseName",
-					"courses.courseType as courseType",
-					"users.name as name",
-					"enrollments.*")
-				.join("courses", "id", "courseId")
-				.join("users", "id", "professorId")
-				.innerJoin("studentEnrollments", "enrollmentId", "id")
-				.where("studentEnrollments.studentId", 13)
-				.orderBy("enrollments.id")
-				.getAll();
+//		List<Enrollment> registered = new QueryBuilder(Enrollment.class)
+//				.select(
+//					"studentEnrollments.id as studentEnrollmentId",	
+//					"courses.courseName as courseName",
+//					"courses.courseType as courseType",
+//					"users.name as name",
+//					"enrollments.*")
+//				.join("courses", "id", "courseId")
+//				.join("users", "id", "professorId")
+//				.innerJoin("studentEnrollments", "enrollmentId", "id")
+//				.where("studentEnrollments.studentId", 13)
+//				.orderBy("enrollments.id")
+//				.getAll();
+//		
+//		for (Enrollment reg : registered) {
+//			System.out.println(reg.toString());
+//		}
 		
-		for (Enrollment reg : registered) {
-			System.out.println(reg.toString());
-		}
+		Enrollment enrollment = new QueryBuilder(Enrollment.class)
+				.select("currentlyEnrolled", "enrollmentCapacity")
+				.where("id", 1)
+				.get();
 		
+		int currentEnrolled = (int) enrollment.getCurrentlyEnrolled();
+		int enrollmentCapacity = (int) enrollment.getEnrollmentCapacity();
+		
+		boolean flag = (currentEnrolled >= enrollmentCapacity);
+		System.out.println("Flag: " + flag);
+			
 	}
 }

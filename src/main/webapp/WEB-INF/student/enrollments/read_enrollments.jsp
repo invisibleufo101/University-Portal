@@ -20,11 +20,15 @@
 						<th scope="col">학점</th>
 						<th scope="col">현재 인원</th>
 						<th scope="col">수강 인원</th>
-						<th scope="col">수강 취소</th>
+<!-- 						<th scope="col">수강 취소</th> -->
 					</tr>
 				</thead>
 				<tbody>
-
+					<c:if test="${ empty registeredCourses }">
+					<tr>
+						<td class="p-5" colspan="8">조회할 결과가 없습니다</td>
+					</tr>
+					</c:if>
 					<c:forEach var="registeredCourse" items="${ registeredCourses }">
 					<tr class="fs-6">
 						<td>${ registeredCourse.courseType }</td>
@@ -33,20 +37,19 @@
 						<td>${ registeredCourse.weightedPoints }</td>
 						<td>${ registeredCourse.currentlyEnrolled }</td>
 						<td>${ registeredCourse.enrollmentCapacity }</td>
-						<td class="text-center">
-							<form action="#" method="POST">
-								<input type="hidden" name="enrollment_id" value="${ registeredCourse.id }"/>		
-								<button type="submit" class="icon-link bg-transparent border-0">
-									<svg class="text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="16" width="16">
-										<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-									</svg>
-								</button>
-							</form>
-						</td>
+<!-- 						<td class="text-center"> -->
+<!-- 							<form action="#" method="POST"> -->
+<%-- 								<input type="hidden" name="enrollment_id" value="${ registeredCourse.id }"/>		 --%>
+<!-- 								<button type="submit" class="icon-link bg-transparent border-0"> -->
+<!-- 									<svg class="text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="16" width="16"> -->
+<!-- 										<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" /> -->
+<!-- 									</svg> -->
+<!-- 								</button> -->
+<!-- 							</form> -->
+<!-- 						</td> -->
 					</tr>
 					</c:forEach>
 					
-				<!-- End of Account List -->
 				</tbody>
 			</table>
 		</div>

@@ -19,4 +19,6 @@ public class Enrollment extends Model {
 	private String courseName;      // 교과목 이름
 	private String courseType;		// 교과목 구분 (전공, 교양)
 	private String name;            // 교수 이름
+	
+	private Long studentEnrollmentId;
 }

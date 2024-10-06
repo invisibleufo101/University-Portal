@@ -69,6 +69,26 @@
 </main>
 <!-- End of Portal Dashboard -->
 </div>
-	
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+	<div id="message_toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+			<img src="..." class="rounded me-2" alt="...">
+			<strong class="me-auto">System</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">${ errorMsg }</div>
+	</div>
+</div>
+<script>
+	const toastTrigger = ${ errorStatus };
+	const toastMessage = document.getElementById('message_toast');
+
+	if (toastTrigger) {
+		const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastMessage);
+		toastBootstrap.show();
+	}
+</script>
+
 </body>
 </html>
