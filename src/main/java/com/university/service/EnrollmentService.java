@@ -1,17 +1,15 @@
 package com.university.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.university.model.impl.Enrollment;
 import com.university.querybuilder.QueryBuilder;
 
 public class EnrollmentService {
 
+	private QueryBuilder queryBuilder = new QueryBuilder(Enrollment.class);
 	
 	public List<Enrollment> browseEnrollments(String searchCategory, String searchKeyword){
-		QueryBuilder queryBuilder = new QueryBuilder(Enrollment.class);
 		if (searchCategory.equals("course_name")) {
 			return queryBuilder
 					.select(
@@ -63,7 +61,6 @@ public class EnrollmentService {
 	}
 	
 	public Enrollment readEnrollment(Long id) {
-		QueryBuilder queryBuilder = new QueryBuilder(Enrollment.class);
 		
 		return queryBuilder
 		.select(
@@ -78,11 +75,6 @@ public class EnrollmentService {
 	}
 	
 	public void editEnrollment(Enrollment updateEnrollment) {
-		
-		System.out.println("Update Enrollment:");
-		System.out.println(updateEnrollment.toString());
-		
-		QueryBuilder queryBuilder = new QueryBuilder(Enrollment.class);
 		queryBuilder.update()
 					.set("professorId", updateEnrollment.getProfessorId())
 					.set("weightedPoints",updateEnrollment.getWeightedPoints())
@@ -92,15 +84,12 @@ public class EnrollmentService {
 	}
 	
 	public void addEnrollment(Enrollment newEnrollment) {
-		QueryBuilder queryBuilder = new QueryBuilder(Enrollment.class);
-		
 		queryBuilder.insert("courseId", "professorId", "weightedPoints", "enrollmentCapacity")
 					.values(newEnrollment.getCourseId(), newEnrollment.getProfessorId(), newEnrollment.getWeightedPoints(), newEnrollment.getEnrollmentCapacity())
 					.execute();
 	}
 	
 	public void deleteEnrollment(Long id) {
-		QueryBuilder queryBuilder = new QueryBuilder(Enrollment.class);
 		queryBuilder.delete()
 					.where("id", id)
 					.execute();

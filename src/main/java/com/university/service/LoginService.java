@@ -1,7 +1,5 @@
 package com.university.service;
 
-import java.util.Base64;
-
 import com.university.model.impl.User;
 import com.university.querybuilder.QueryBuilder;
 import com.university.util.PasswordUtil;
@@ -9,9 +7,11 @@ import com.university.util.PasswordUtil;
 
 public class LoginService {
 
+	private QueryBuilder queryBuilder = new QueryBuilder(User.class);
+	
 	public User getLoginUser(String schoolId) {
 		
-		User loginUser = new QueryBuilder(User.class)
+		User loginUser = queryBuilder
 									.select(
 										"users.*", 
 										"userRoles.roleName as roleName",  

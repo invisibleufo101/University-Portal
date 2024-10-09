@@ -42,17 +42,17 @@ public class LoginController extends Controller {
 			
 			// 사용자가 관리자라면 관리자 페이지로 넘겨줍니다.
 			if (loginUser.getRoleId() == 1L) {
-				return "admin/portal";
+				return "/admin-portal.do";
 			}
 			
 			// 사용자가 학생이라면 학생 페이지로 넘겨줍니다.
 			if (loginUser.getRoleId() == 2L) {
-				return "student/portal";
+				return "/student-portal.do";
 			}
 			
 			// 사용자가 교수라면 교수 페이지로 넘겨줍니다.
 			if (loginUser.getRoleId() == 3L) {
-				return "professor/portal";
+				return "/professor-portal.do";
 			}
 		} 
 		

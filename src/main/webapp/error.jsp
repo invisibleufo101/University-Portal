@@ -13,9 +13,11 @@
 </head>
 <body>
 	<h1>Oops! You made a null routing error!</h1>
-	<h2 class="text-primary">Check if your controller has any NullPointExceptions</h2>
-	<h2 class="text-primary">Or, check if your INPUT PARAMETERS are not NULL!</h2>
-	<h3 class="text-primary>">If not, then check if there's something wrong with the Service class!</h3>
+	<ul class="text-primary fs-3">
+		<li>Check if your DB is connected.</li>
+		<li>Check if your controller has any Null Parameters</li>
+		<li>If not, then check if there's something wrong with the Service class!</li>
+	</ul>
 	<h4>Have fun!</h4>
 </body>
 </html>

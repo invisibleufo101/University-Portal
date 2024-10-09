@@ -13,12 +13,10 @@ import com.university.util.PasswordUtil;
 
 public class UserService {
 
-	// Memory leak issues?
-//	private QueryBuilder queryBuilder = new QueryBuilder(User.class);
+	private QueryBuilder queryBuilder = new QueryBuilder(User.class);
 	
 	// browse users
 	public List<User> browseUsers(){
-		QueryBuilder queryBuilder = new QueryBuilder(User.class);
 		List<User> users = queryBuilder.select("user_roles.role_name as role_name", "schoolId", "name", "majors.major_name as major_name")
 				  .join("majors", "id", "majorId")
 				  .join("user_roles", "id", "roleId")
@@ -30,7 +28,6 @@ public class UserService {
 	
 	// read user
 	public User readUser(String schoolId) {
-		QueryBuilder queryBuilder = new QueryBuilder(User.class);
 		User readUser = queryBuilder.select("user_roles.role_name as role_name", "users.role_id", "schoolId", "name", "email", "phoneNumber", "users.major_id as major_id", "majors.major_name as major_name", "birthDate")
 				  .join("majors", "id", "majorId")
 				  .join("user_roles", "id", "roleId")
@@ -43,7 +40,6 @@ public class UserService {
 	
 	// edit user
 	public void editUser(String schoolId, Long editedMajor) {
-		QueryBuilder queryBuilder = new QueryBuilder(User.class);
 		queryBuilder.update().set("majorId", editedMajor).where("schoolId", schoolId).execute();
 	}
 	
@@ -53,9 +49,6 @@ public class UserService {
 	 * @param user 계정 등록 페이지에서 받은 사용자 등록 정보
 	 */
 	public void addUser(User newUser) {
-		
-		System.out.println("New Password:" + newUser.getPassword());
-		
 		// 사용자의 학번/교번을 자동 생성합니다.
 		String schoolId = generateSchoolId(newUser);
 		newUser.setField("schoolId", schoolId);
@@ -69,7 +62,6 @@ public class UserService {
 		newUser.setField("salt", salt);
 		newUser.setField("password", hashedPassword);
 		
-		QueryBuilder queryBuilder = new QueryBuilder(User.class);
 		queryBuilder.insert("roleId", "majorId", "schoolId", "name", "email", "phoneNumber", "password", "salt", "birthDate")
 					.values(newUser.getRoleId(), newUser.getMajorId(), newUser.getSchoolId(), newUser.getName(), newUser.getEmail(), newUser.getPhoneNumber(), newUser.getPassword(), newUser.getSalt(), newUser.getBirthDate())
 					.execute();
@@ -77,7 +69,7 @@ public class UserService {
 	
 	
 	public List<User> getProfessors(){
-		return new QueryBuilder(User.class).select("id", "name").where("roleId", 3).getAll();
+		return queryBuilder.select("users.id as id", "users.name as name", "majors.major_name").join("majors", "id", "majorId").where("roleId", 3).getAll();
 	}
 	/**
 	 * 새 사용자 계정을 만들 때 생년월일 (yyMMdd) 형식으로 만들어지게 하는 메소드입니다.
@@ -100,7 +92,6 @@ public class UserService {
 	 * @throws Exception 
 	 */
 	private String generateSchoolId(User user) {	
-		QueryBuilder queryBuilder = new QueryBuilder(User.class);
 		User userCntInMajor = queryBuilder.select("count(*) as cnt").where("majorId", user.getMajorId()).get();
 		
 		// Convert all criteria to String

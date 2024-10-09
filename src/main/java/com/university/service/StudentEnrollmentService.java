@@ -9,7 +9,7 @@ import com.university.querybuilder.QueryBuilder;
 
 public class StudentEnrollmentService {
 
-	public List<Enrollment> browseAvailableEnrollments(){
+	public List<Enrollment> browseAvailableEnrollments(Long studentId){
 		
 		List<Enrollment> availableCourses = new QueryBuilder(Enrollment.class)
 												.select(
@@ -20,14 +20,14 @@ public class StudentEnrollmentService {
 												.join("courses", "id", "courseId")
 												.join("users", "id", "professorId")
 												.leftJoin("studentEnrollments", "enrollmentId", "id")
-													.and("studentEnrollments.studentId", 13)
+													.and("studentEnrollments.studentId", studentId)
 												.whereNull("studentEnrollments.enrollmentId")
 												.orderBy("enrollments.id").getAll();
 
 		return availableCourses;
 	}
 	
-	public List<Enrollment> browseRegisteredEnrollments(){
+	public List<Enrollment> browseRegisteredEnrollments(Long studentId){
 		List<Enrollment> registeredCourses = new QueryBuilder(Enrollment.class)
 				.select(
 					"courses.courseName as courseName",
@@ -37,7 +37,7 @@ public class StudentEnrollmentService {
 				.join("courses", "id", "courseId")
 				.join("users", "id", "professorId")
 				.innerJoin("studentEnrollments", "enrollmentId", "id")
-				.where("studentEnrollments.studentId", 13)
+				.where("studentEnrollments.studentId", studentId)
 				.orderBy("enrollments.id")
 				.getAll();
 		

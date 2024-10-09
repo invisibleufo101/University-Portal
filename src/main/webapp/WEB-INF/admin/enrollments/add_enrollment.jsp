@@ -28,7 +28,9 @@
 					<select name="professor_id" id="register_professor_id" class="form-select ${ !empty errors['professorId'] ? 'border border-danger' : '' }">
 						<option value="">선택</option>
 						<c:forEach var="professor" items="${ professors }">
-							<option value="${ professor.id }" <c:if test="${ oldInputs['professor_id'] == professor.id }">selected</c:if> >${ professor.name }</option>
+							<option value="${ professor.id }" <c:if test="${ oldInputs['professor_id'] == professor.id }">selected</c:if>>
+								[<c:out value="${professor.majorName}"/>] <c:out value="${ professor.name }"/>
+							</option>
 						</c:forEach>
 					</select>
 					<c:if test="${ !empty errors['professorId'] }">

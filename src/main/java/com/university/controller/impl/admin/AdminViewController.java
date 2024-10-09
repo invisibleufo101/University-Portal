@@ -10,6 +10,9 @@ import com.university.model.impl.Course;
 import com.university.model.impl.Major;
 import com.university.model.impl.User;
 import com.university.querybuilder.QueryBuilder;
+import com.university.service.CourseService;
+import com.university.service.MajorService;
+import com.university.service.UserService;
 
 
 public class AdminViewController extends Controller {
@@ -33,7 +36,7 @@ public class AdminViewController extends Controller {
 	 * @return
 	 */
 	public String showRegisterAccount(HttpServletRequest request, HttpServletResponse response) {
-		List<Major> majors = new QueryBuilder(Major.class).select("*").orderBy("id").getAll();
+		List<Major> majors = new MajorService().browseMajors();
 		
 		request.setAttribute("majors", majors);
 		return "admin/accounts/add_account";
@@ -47,12 +50,10 @@ public class AdminViewController extends Controller {
 	 * @return
 	 */
 	public String showRegisterEnrollment(HttpServletRequest request, HttpServletResponse response) {
-		List<Course> courses = new QueryBuilder(Course.class).select("id", "courseName").getAll();
-		List<Course> courseTypes = new QueryBuilder(Course.class).select("distinct(course_type)").getAll();
-		List<User> professors = new QueryBuilder(User.class).select("id", "name").where("roleId", 3).getAll();
+		List<Course> courses = new CourseService().browseCourses();
+		List<User> professors = new UserService().getProfessors();
 
 		request.setAttribute("courses", courses);
-		request.setAttribute("courseTypes", courseTypes);		
 		request.setAttribute("professors", professors);
 		
 		return "admin/enrollments/add_enrollment";

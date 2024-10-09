@@ -43,9 +43,9 @@ public class RouteHandler {
 		
 		// 학생 포털 메인 페이지
 		routeMap.put("/student-portal.do", "com.university.controller.impl.student." + "StudentViewController@showPortal");
-		routeMap.put("/enrollment-registration.do", "com.university.controller.impl.student." + "StudentEnrollmentController@browse");
-		routeMap.put("/enrollment-add.do", "com.university.controller.impl.student." + "StudentEnrollmentController@add");
-		routeMap.put("/enrollment-read.do", "com.university.controller.impl.student." + "StudentEnrollmentController@read");
+		routeMap.put("/student-enrollment-registration.do", "com.university.controller.impl.student." + "StudentEnrollmentController@browse");
+		routeMap.put("/student-enrollment-add.do", "com.university.controller.impl.student." + "StudentEnrollmentController@add");
+		routeMap.put("/student-enrollment-read.do", "com.university.controller.impl.student." + "StudentEnrollmentController@read");
 		
 	}
 	

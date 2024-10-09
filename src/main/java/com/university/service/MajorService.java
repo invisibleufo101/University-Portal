@@ -7,8 +7,10 @@ import com.university.querybuilder.QueryBuilder;
 
 public class MajorService {
 
+	private QueryBuilder queryBuilder = new QueryBuilder(Major.class); 
+	
 	public List<Major> browseMajors(){
-		List<Major> majors = new QueryBuilder(Major.class).select("*").orderBy("id").getAll();
+		List<Major> majors = queryBuilder.select("*").orderBy("id").getAll();
 		return majors;
 	}
 }

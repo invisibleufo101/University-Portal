@@ -1,7 +1,9 @@
 package com.university.util;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +22,7 @@ public class RequestParameterUtil {
 			String paramName = entry.getKey();
 			String[] paramValues = entry.getValue();
 			
-			String value = String.join(", ", paramValues);
+			String value = Arrays.stream(paramValues).map(String::strip).collect(Collectors.joining(", "));
 			paramMap.put(paramName, value);
 		}
 		

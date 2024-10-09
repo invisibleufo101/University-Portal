@@ -15,6 +15,6 @@ public class StudentEnrollmentValidator {
 		int currentEnrolled = (int) checkEnrollment.getCurrentlyEnrolled();
 		int enrollmentCapacity = (int) checkEnrollment.getEnrollmentCapacity();
 		
-		return !(currentEnrolled >= enrollmentCapacity);
+		return currentEnrolled < enrollmentCapacity;
 	}
 }

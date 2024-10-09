@@ -14,7 +14,7 @@
 			
 			<!-- View My Registered Courses -->
 			<div class="d-flex align-items-center justify-content-end mb-3">				
-				<button class="ms-1 btn btn-success d-flex align-items-center justify-content-between" type="button" onclick="location.href='/enrollment-read.do'">
+				<button class="ms-1 btn btn-success d-flex align-items-center justify-content-between" type="button" onclick="location.href='/student-enrollment-read.do'">
 					<svg class="pe-none me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="18" width="18">
 						<path fill-rule="evenodd" d="M2.625 6.75a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0A.75.75 0 0 1 8.25 6h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.625 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 12a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12A.75.75 0 0 1 7.5 12Zm-4.875 5.25a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
 					</svg>
@@ -45,7 +45,7 @@
 						<td>${ availableCourse.currentlyEnrolled }</td>
 						<td>${ availableCourse.enrollmentCapacity }</td>
 						<td class="text-center">
-							<form action="/enrollment-add.do" method="POST">
+							<form action="/student-enrollment-add.do" method="POST">
 								<input type="hidden" name="enrollment_id" value="${ availableCourse.id }"/>		
 								<button type="submit" class="icon-link btn bg-primary">
 									<svg class="text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="16" width="16">
@@ -70,24 +70,31 @@
 <!-- End of Portal Dashboard -->
 </div>
 
-<div class="toast-container position-fixed top-0 end-0 p-3">
-	<div id="message_toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-		<div class="toast-header">
-			<img src="..." class="rounded me-2" alt="...">
-			<strong class="me-auto">System</strong>
-			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+<div id="error_modal" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">시스템 메세지</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div> 
+			<div class="modal-body text-center">
+				<p class="fs-5">수강 인원이 .</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">닫기</button>
+			</div>
 		</div>
-		<div class="toast-body">${ errorMsg }</div>
 	</div>
 </div>
-<script>
-	const toastTrigger = ${ errorStatus };
-	const toastMessage = document.getElementById('message_toast');
 
-	if (toastTrigger) {
-		const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastMessage);
-		toastBootstrap.show();
-	}
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const errorModal = new bootstrap.Modal(document.getElementById("error_modal"));
+		const errorStatus = '${errorStatus}' === 'true' ? 'true' : 'false';
+		if (errorStatus === 'true'){
+			errorModal.show();
+		}
+	});
 </script>
 
 </body>

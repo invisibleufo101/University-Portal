@@ -145,7 +145,7 @@ public class EnrollmentValidator {
 			return false;
 		}
 		
-		if (enrollmentCapacity <= 5) {
+		if (enrollmentCapacity < 5) {
 			errors.put("enrollmentCapacity", "* 최소 수강 인원 미만입니다. 다시 입력해주세요.");
 			return false;
 		}

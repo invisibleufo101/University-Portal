@@ -20,7 +20,9 @@ public class StudentEnrollmentController extends Controller {
 	// GET @ enrollment-registration.do
 	@Override
 	public String browse(HttpServletRequest request, HttpServletResponse response) {
-		List<Enrollment> availableCourses = service.browseAvailableEnrollments();
+		Long studentId = getCurrentUserId(request);
+		
+		List<Enrollment> availableCourses = service.browseAvailableEnrollments(studentId);
 		request.setAttribute("availableCourses", availableCourses);
 		
 		return "student/enrollments/enrollments";
@@ -32,10 +34,8 @@ public class StudentEnrollmentController extends Controller {
 		String enrollmentIdString = request.getParameter("enrollment_id");
 		Long enrollmentId = Long.parseLong(enrollmentIdString);
 		
-		HttpSession session = request.getSession();
-		User currentUser = (User) session.getAttribute("loginUser");
+		Long studentId = getCurrentUserId(request);
 		
-		System.out.println(validator.validate(enrollmentId));
 		if (!validator.validate(enrollmentId)) {
 			
 			// how do I send error message? where do I put it?
@@ -43,21 +43,31 @@ public class StudentEnrollmentController extends Controller {
 			request.setAttribute("errorStatus", true);
 			request.setAttribute("errorMsg", errorMsg);
 			
-			return "/enrollment-registration.do";
+			System.out.println("수강 신청이 불가함!!!");
+			
+			return "/student-enrollment-registration.do";
 		}
 		
-		service.addStudentEnrollment(currentUser.getId(), enrollmentId);
+		service.addStudentEnrollment(studentId, enrollmentId);
 		
-		return "/enrollment-registration.do";
+		return "/student-enrollment-registration.do";
 	}
 	
 	
 	// GET @ enrollment-read.do
 	@Override
 	public String read(HttpServletRequest request, HttpServletResponse response) {
-		List<Enrollment> registeredCourses = service.browseRegisteredEnrollments();
+		Long studentId = getCurrentUserId(request);
+		
+		List<Enrollment> registeredCourses = service.browseRegisteredEnrollments(studentId);
 		request.setAttribute("registeredCourses", registeredCourses);
 		
 		return "student/enrollments/read_enrollments";
+	}
+	
+	private Long getCurrentUserId(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute("loginUser");
+		return currentUser.getId();
 	}
 }
