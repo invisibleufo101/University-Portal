@@ -32,17 +32,4 @@ public class LectureService {
 				.get();
 	}
 	
-	public List<User> getEnrolledStudents(Long lectureId){
-		return new QueryBuilder(User.class)
-				.select(
-					"users.id",
-					"users.schoolId as schoolId",
-					"users.name as name")
-				.join("studentEnrollments", "studentId", "id")
-				.chainJoin("enrollments", "id", "studentEnrollments", "enrollmentId")
-				.where("enrollments.id", lectureId)
-				.getAll();
-	}
-	
-	
 }

@@ -10,7 +10,7 @@
 		</button>
 	</div>
 	<div class="m-3">				
-		<h2>공지 사항</h2>
+		<h2>수강생 목록</h2>
 	</div>
 	
 	<div class="row g-3 justify-content-end align-items-center mb-3">
@@ -21,19 +21,23 @@
 	<table class="table table-hover text-center w-100 overflow-y-hidden" style="table-layout: fixed;">
 		<thead class="table-dark sticky-top top-0 pt-3 bg-white">
 			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">수정</th>
+				<th scope="col">학번</th>
+				<th scope="col">이름</th>
 			</tr>
 		</thead>
 		<tbody>
+		    <c:if test="${ empty enrolledStudents }">
+		    <tr>
+		    	<td class="p-5" colspan="2">등록된 학생이 없습니다.</td>
+		    </tr>
+		    </c:if>
+		    
+			<c:forEach var="enrolledStudent" items="${ enrolledStudents }">
 			<tr>
-				<td>1</td>
-				<td>수업 필수 품목들</td>
-				<td>
-				
-				</td>
+				<td>${ enrolledStudent.schoolId }</td>
+				<td>${ enrolledStudent.name }</td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>

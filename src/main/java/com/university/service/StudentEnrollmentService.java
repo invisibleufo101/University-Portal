@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.university.model.impl.Enrollment;
 import com.university.model.impl.StudentEnrollment;
+import com.university.model.impl.StudentGrade;
 import com.university.querybuilder.QueryBuilder;
 
 public class StudentEnrollmentService {
@@ -62,6 +63,55 @@ public class StudentEnrollmentService {
 			.set("currentlyEnrolled", enrollments.getCnt())
 			.where("id", enrollmentId)
 			.execute();
+		
+		addStudentGradeRecord();
+	}
+	
+	private void addStudentGradeRecord() {
+		StudentEnrollment latestEnrollment = new QueryBuilder(StudentEnrollment.class)
+																.select("id")
+																.orderBy("id", "DESC")
+																.get();
+		
+		Long latestEnrollmentId = latestEnrollment.getId();
+		
+		new QueryBuilder(StudentGrade.class)
+						.insert("studentEnrollmentId")
+						.values(latestEnrollmentId)
+						.execute();
+	}
+	
+	public List<StudentEnrollment> getEnrolledStudents(Long courseId){
+		QueryBuilder queryBuilder = new QueryBuilder(StudentEnrollment.class);
+		List<StudentEnrollment> enrolledStudents = queryBuilder
+														.select(
+															"studentEnrollments.id as id",
+															"users.schoolId as schoolId",
+															"users.name as name")
+														.join("enrollments", "id", "enrollmentId")
+														.join("users", "id", "studentId")
+														.chainJoin("courses", "id", "enrollments", "courseId")
+														.where("enrollments.id", courseId)
+														.getAll();
+		
+		return enrolledStudents;
+	}
+	
+	public List<StudentEnrollment> getStudentGrades(Long courseId){
+		QueryBuilder queryBuilder = new QueryBuilder(StudentEnrollment.class);
+		List<StudentEnrollment> enrolledStudents = queryBuilder
+														.select(
+															"studentEnrollments.id as id",
+															"users.schoolId as schoolId",
+															"users.name as name",
+															"studentGrades.grade")
+														.join("enrollments", "id", "enrollmentId")
+														.join("users", "id", "studentId")
+														.join("studentGrades", "studentEnrollmentId", "id")
+														.where("enrollments.id", courseId)
+														.getAll();
+		
+		return enrolledStudents;
 	}
 }
 

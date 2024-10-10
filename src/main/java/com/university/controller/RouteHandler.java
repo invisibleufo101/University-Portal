@@ -47,8 +47,9 @@ public class RouteHandler {
 		// 교수자 강의 페이지
 		routeMap.put("/professor-lectures.do", "com.university.controller.impl.professor." + "LectureController@browse");
 		routeMap.put("/professor-lecture.do", "com.university.controller.impl.professor." + "LectureController@showLectureAnnouncements");
-		routeMap.put("/professor-lecture-materials.do", "com.university.controller.impl.professor." + "LectureController@showLectureMaterials");
+		routeMap.put("/professor-lecture-materials.do", "com.university.controller.impl.professor." + "LectureController@showLectureStudents");
 		routeMap.put("/professor-lecture-grade.do", "com.university.controller.impl.professor." + "LectureController@showLectureGradeManagement");
+		routeMap.put("/professor-add-grade.do", "com.university.controller.impl.professor." + "LectureController@addGrade");
 		
 		// 학생 포털 메인 페이지
 		routeMap.put("/student-portal.do", "com.university.controller.impl.student." + "StudentViewController@showPortal");
