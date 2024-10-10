@@ -1,6 +1,7 @@
 package com.university.controller.impl.student;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import com.university.controller.Controller;
 import com.university.model.impl.Enrollment;
 import com.university.model.impl.User;
 import com.university.service.StudentEnrollmentService;
+import com.university.util.RequestParameterUtil;
 import com.university.validator.StudentEnrollmentValidator;
 
 public class StudentEnrollmentController extends Controller {
@@ -20,9 +22,11 @@ public class StudentEnrollmentController extends Controller {
 	// GET @ enrollment-registration.do
 	@Override
 	public String browse(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, String> searchParams = RequestParameterUtil.mapRequestParameters(request);
+		
 		Long studentId = getCurrentUserId(request);
 		
-		List<Enrollment> availableCourses = service.browseAvailableEnrollments(studentId);
+		List<Enrollment> availableCourses = service.browseAvailableEnrollments(studentId, searchParams);
 		request.setAttribute("availableCourses", availableCourses);
 		
 		return "student/enrollments/enrollments";

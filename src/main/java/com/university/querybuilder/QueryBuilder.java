@@ -381,7 +381,17 @@ public class QueryBuilder {
 		referenceKey = camelCaseToSnakeCase(referenceKey);
 		foreignKey = camelCaseToSnakeCase(foreignKey);
 		
-		this.query.append(" JOIN ").append(foreignTable).append(" ON ").append(foreignTable).append(".").append(foreignKey).append(" = ").append(this.table).append(".").append(referenceKey).append(" ");
+		this.query.append(" JOIN ")
+				  .append(foreignTable)
+				  .append(" ON ")
+				  .append(foreignTable)
+				  .append(".")
+				  .append(foreignKey)
+				  .append(" = ")
+				  .append(this.table)
+				  .append(".")
+				  .append(referenceKey)
+				  .append(" ");
 		
 		return this;
 	}
@@ -391,7 +401,17 @@ public class QueryBuilder {
 		referenceKey = camelCaseToSnakeCase(referenceKey);
 		foreignKey = camelCaseToSnakeCase(foreignKey);
 		
-		this.query.append(" LEFT JOIN ").append(foreignTable).append(" ON ").append(foreignTable).append(".").append(foreignKey).append(" = ").append(this.table).append(".").append(referenceKey).append(" ");
+		this.query.append(" LEFT JOIN ")
+				  .append(foreignTable)
+				  .append(" ON ")
+				  .append(foreignTable)
+				  .append(".")
+				  .append(foreignKey)
+				  .append(" = ")
+				  .append(this.table)
+				  .append(".")
+				  .append(referenceKey)
+				  .append(" ");
 		
 		return this;
 	}
@@ -401,7 +421,17 @@ public class QueryBuilder {
 		referenceKey = camelCaseToSnakeCase(referenceKey);
 		foreignKey = camelCaseToSnakeCase(foreignKey);
 		
-		this.query.append(" RIGHT JOIN ").append(foreignTable).append(" ON ").append(foreignTable).append(".").append(foreignKey).append(" = ").append(this.table).append(".").append(referenceKey).append(" ");
+		this.query.append(" RIGHT JOIN ")
+				  .append(foreignTable)
+				  .append(" ON ")
+				  .append(foreignTable)
+				  .append(".")
+				  .append(foreignKey)
+				  .append(" = ")
+				  .append(this.table)
+				  .append(".")
+				  .append(referenceKey)
+				  .append(" ");
 		
 		return this;
 	}
@@ -411,7 +441,48 @@ public class QueryBuilder {
 		referenceKey = camelCaseToSnakeCase(referenceKey);
 		foreignKey = camelCaseToSnakeCase(foreignKey);
 		
-		this.query.append(" INNER JOIN ").append(foreignTable).append(" ON ").append(foreignTable).append(".").append(foreignKey).append(" = ").append(this.table).append(".").append(referenceKey).append(" ");
+		this.query.append(" INNER JOIN ")
+				  .append(foreignTable)
+				  .append(" ON ")
+				  .append(foreignTable)
+				  .append(".")
+				  .append(foreignKey)
+				  .append(" = ")
+				  .append(this.table)
+				  .append(".")
+				  .append(referenceKey)
+				  .append(" ");
+		
+		return this;
+	}
+	
+	/**
+	 * JOIN을 할 때 기존 FROM문에서 레퍼런스 된 테이블명이 아닌 다른 테이블에서 JOIN을 할때 쓰는 메소드입니다.
+	 * 
+	 * @param table0 
+	 * @param key0
+	 * @param table1
+	 * @param key1
+	 * @return
+	 */
+	public QueryBuilder chainJoin(String table0, String key0, String table1, String key1) {
+		table0 = camelCaseToSnakeCase(table0);
+		key0 = camelCaseToSnakeCase(key0);
+		
+		table1 = camelCaseToSnakeCase(table1);
+		key1 = camelCaseToSnakeCase(key1);
+		
+		this.query.append(" JOIN ")
+				  .append(table0)
+				  .append(" ON ")
+				  .append(table0)
+				  .append(".")
+				  .append(key0)
+				  .append(" = ")
+				  .append(table1)
+				  .append(".")
+				  .append(key1)
+				  .append(" ");
 		
 		return this;
 	}

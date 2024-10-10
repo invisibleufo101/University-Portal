@@ -1,7 +1,7 @@
 package com.university.service;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.university.model.impl.Enrollment;
 import com.university.model.impl.StudentEnrollment;
@@ -9,7 +9,7 @@ import com.university.querybuilder.QueryBuilder;
 
 public class StudentEnrollmentService {
 
-	public List<Enrollment> browseAvailableEnrollments(Long studentId){
+	public List<Enrollment> browseAvailableEnrollments(Long studentId, Map<String, String> searchParams){
 		
 		List<Enrollment> availableCourses = new QueryBuilder(Enrollment.class)
 												.select(

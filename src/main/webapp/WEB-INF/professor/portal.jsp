@@ -6,34 +6,33 @@
 	<div class="border border-2 rounded-3 shadow">
 		<!-- Start of Currently Enrolled Classes -->
 		<div class="p-3">
-			<h2 class="m-3">나의 강좌</h2>
+			<h2 class="m-3">진행 중인 강의</h2>
 			<ul class="list-unstyled">
 			
-				<c:if test="${ empty registeredCourses }">
+				<c:if test="${ empty assignedLectures }">
 				<li class="border border-secondary-subtle p-2 mb-2">
 					<div class="text-decoration-none text-black">									
 						<span class="d-flex justify-content-center align-items-center p-5">
-							신청한 교과목들이 없습니다.
+							진행 중인 강의가 없습니다.
 						</span>
 					</div>
 				</li>
 				</c:if>
 				
-				<c:forEach var="registeredCourse" items="${ registeredCourses }">
+				<c:forEach var="assignedLecture" items="${ assignedLectures }">
 				<li class="border border-secondary-subtle p-2 mb-2">
 					<a href="#" class="course-link text-decoration-none text-black">									
 						<div class="d-flex align-items-center" style="column-gap: 1rem;">
 						
-							<c:if test="${ registeredCourse.courseType == '전공' }">
+							<c:if test="${ assignedLecture.courseType == '전공' }">
 								<span class="badge text-bg-info fs-6" style="width: 4rem;">${ registeredCourse.courseType }</span>
 							</c:if>
-							<c:if test="${ registeredCourse.courseType == '교양' }">
+							<c:if test="${ assignedLecture.courseType == '교양' }">
 								<span class="badge text-bg-warning fs-6" style="width: 4rem;">교양</span>
 							</c:if>
 							
 							<div class="d-flex flex-column justify-content-start align-items-start">
-								<p class="fw-bold m-2">${ registeredCourse.courseName }</p>
-								<p class="m-2">${ registeredCourse.name }</p>
+								<p class="fw-bold m-2">${ assignedLecture.courseName }</p>
 							</div>
 						</div>
 					</a>

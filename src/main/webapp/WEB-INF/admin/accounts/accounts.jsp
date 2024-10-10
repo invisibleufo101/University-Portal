@@ -19,7 +19,7 @@
 							계정 등록
 						</button>
 					</div>
-
+				</div>
 <!-- 					<div class="col-auto"> -->
 <!-- 						<div class="input-group"> -->
 <!-- 							<div class="w-10"> -->
