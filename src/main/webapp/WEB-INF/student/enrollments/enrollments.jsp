@@ -6,9 +6,10 @@
 	<div class="border border-2 rounded-3 shadow">
 	
 		<!-- Start of Available Course Enrollments -->
-		<div class="p-5">
+		<div class="p-3">
+			<h2 class="m-3">수강 신청</h2>
+			
 			<div class="text-center mb-4 mx-3">			
-				<h2>수강 신청</h2>
 				<p class="fs-5">신청 가능한 교과목들</p>
 			</div>
 			

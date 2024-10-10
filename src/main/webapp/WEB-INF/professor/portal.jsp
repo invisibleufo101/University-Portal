@@ -21,7 +21,7 @@
 				
 				<c:forEach var="assignedLecture" items="${ assignedLectures }">
 				<li class="border border-secondary-subtle p-2 mb-2">
-					<a href="#" class="course-link text-decoration-none text-black">									
+					<a href="/professor-lecture.do?id=${ assignedLecture.id }" class="course-link text-decoration-none text-black">									
 						<div class="d-flex align-items-center" style="column-gap: 1rem;">
 						
 							<c:if test="${ assignedLecture.courseType == '전공' }">

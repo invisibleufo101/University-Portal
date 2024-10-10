@@ -288,6 +288,19 @@ public class QueryBuilder {
 		return this;
 	}
 
+	public QueryBuilder whereNotNull(String column) {
+		column = camelCaseToSnakeCase(column);
+		if (this.query.toString().contains(" WHERE")) {
+			this.query.append(" AND ");
+		} else {
+			this.query.append(" WHERE ");
+		}
+		
+		this.query.append(column).append(" IS NOT NULL ");
+		
+		return this;
+	}
+	
 //	/**
 //	 * 아직 준비가 안된 메소드입니다.
 //	 * @param column
