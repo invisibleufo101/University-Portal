@@ -2,6 +2,7 @@ package com.university.service;
 
 import java.util.List;
 
+import com.university.model.impl.StudentEnrollment;
 import com.university.model.impl.StudentGrade;
 import com.university.querybuilder.QueryBuilder;
 
@@ -32,5 +33,22 @@ public class GradeService {
 				.getAll();
 		
 		return grades;
+	}
+	
+	public List<StudentEnrollment> getStudentGrades(Long courseId){
+		QueryBuilder queryBuilder = new QueryBuilder(StudentEnrollment.class);
+		List<StudentEnrollment> enrolledStudents = queryBuilder
+														.select(
+															"studentEnrollments.id as id",
+															"users.schoolId as schoolId",
+															"users.name as name",
+															"studentGrades.grade")
+														.join("enrollments", "id", "enrollmentId")
+														.join("users", "id", "studentId")
+														.join("studentGrades", "studentEnrollmentId", "id")
+														.where("enrollments.id", courseId)
+														.getAll();
+		
+		return enrolledStudents;
 	}
 }

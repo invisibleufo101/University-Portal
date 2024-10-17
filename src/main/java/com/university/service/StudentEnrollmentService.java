@@ -96,22 +96,5 @@ public class StudentEnrollmentService {
 		
 		return enrolledStudents;
 	}
-	
-	public List<StudentEnrollment> getStudentGrades(Long courseId){
-		QueryBuilder queryBuilder = new QueryBuilder(StudentEnrollment.class);
-		List<StudentEnrollment> enrolledStudents = queryBuilder
-														.select(
-															"studentEnrollments.id as id",
-															"users.schoolId as schoolId",
-															"users.name as name",
-															"studentGrades.grade")
-														.join("enrollments", "id", "enrollmentId")
-														.join("users", "id", "studentId")
-														.join("studentGrades", "studentEnrollmentId", "id")
-														.where("enrollments.id", courseId)
-														.getAll();
-		
-		return enrolledStudents;
-	}
 }
 

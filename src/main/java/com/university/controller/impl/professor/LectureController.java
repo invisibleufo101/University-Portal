@@ -1,6 +1,7 @@
 package com.university.controller.impl.professor;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +15,11 @@ import com.university.model.impl.User;
 import com.university.service.GradeService;
 import com.university.service.LectureService;
 import com.university.service.StudentEnrollmentService;
+import com.university.validator.GradeValidator;
 
 public class LectureController extends Controller {
 
+	private GradeValidator validator = new GradeValidator();
 	private LectureService service = new LectureService();
 	
 	/**
@@ -78,19 +81,24 @@ public class LectureController extends Controller {
 		HttpSession session = request.getSession();
 		Enrollment currentLecture = (Enrollment) session.getAttribute("currentLecture");
 		
-		List<StudentEnrollment> studentGrades = new StudentEnrollmentService().getStudentGrades(currentLecture.getId());
+		List<StudentEnrollment> studentGrades = new GradeService().getStudentGrades(currentLecture.getId());
 		request.setAttribute("studentGrades", studentGrades);
 		
 		return "professor/lectures/grade_lecture";
 	}
 	
 	public String addGrade(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("AddGrade called!!!");
-		
 		String idString = request.getParameter("student_enrollment_id");
 		Long studentEnrollmentId = Long.parseLong(idString);
 		
 		String grade = request.getParameter("student_grade");
+		if (!validator.validate(grade)) {
+			Map<String, String> errors = validator.getErrors();
+			request.setAttribute("errors", errors);
+			request.setAttribute("oldEnrollmentId", studentEnrollmentId);
+			
+			return "/professor-lecture-grade.do";
+		}
 		
 		StudentGrade newGrade = new StudentGrade();
 		newGrade.setField("studentEnrollmentId", studentEnrollmentId);

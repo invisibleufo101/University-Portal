@@ -57,23 +57,3 @@ public class DispatcherServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 }
-
-//String view = null;
-//if (!viewName.contains(".do")) { 
-//	if (viewName.equals("login")) {
-//		view = viewName + ".jsp";
-//	} else {
-//		view = viewResolver.getViewPath(viewName);
-//	}
-//} else {
-//	view = viewName;
-//}
-
-
-//if (viewName.equals("login")) {
-//	view = viewName + ".jsp";
-//} else if (!viewName.contains(".do")) {
-//	view = viewResolver.getViewPath(viewName);
-//} else {
-//	view = viewName;
-//}

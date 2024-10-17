@@ -10,6 +10,11 @@ public class LectureService {
 
 	private QueryBuilder queryBuilder = new QueryBuilder(Enrollment.class);
 	
+	/**
+	 * 
+	 * @param professorId
+	 * @return
+	 */
 	public List<Enrollment> browseAssignedLectures(Long professorId){
 		return queryBuilder
 				.select(

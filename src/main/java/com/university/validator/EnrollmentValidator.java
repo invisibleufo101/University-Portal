@@ -58,7 +58,7 @@ public class EnrollmentValidator {
 		Long courseId = 0L;
 		try {
 			courseId = Long.parseLong(value);
-		} catch (NumberFormatException nfe) {
+		} catch (Exception e) {
 			errors.put("courseId", "* 올바른 교과목명을 입력해주세요.");
 			return false;
 		}
@@ -90,7 +90,7 @@ public class EnrollmentValidator {
 		Long professorId = 0L;
 		try {
 			professorId = Long.parseLong(value);
-		} catch (NumberFormatException nfe) {
+		} catch (Exception e) {
 			errors.put("professorId", "* 올바른 교수를 선택해주세요.");
 			return false;
 		}
@@ -117,7 +117,7 @@ public class EnrollmentValidator {
 		int weightedPoints = 0;
 		try {
 			weightedPoints = Integer.parseInt(value);
-		} catch (NumberFormatException nfe) {
+		} catch (Exception e) {
 			errors.put("weightedPoints", "* 올바른 학점을 입력해주세요.");
 			return false;
 		}
@@ -140,7 +140,7 @@ public class EnrollmentValidator {
 		int enrollmentCapacity = 0;
 		try {
 			enrollmentCapacity = Integer.parseInt(value);
-		} catch (NumberFormatException nfe) {
+		} catch (Exception e) {
 			errors.put("enrollmentCapacity", "* 올바른 수강 인원을 입력해주세요.");
 			return false;
 		}

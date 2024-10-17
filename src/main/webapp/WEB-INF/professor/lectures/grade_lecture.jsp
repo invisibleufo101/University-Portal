@@ -37,8 +37,7 @@
 				<form action="/professor-add-grade.do" method="POST">
 					<input type="hidden" name="student_enrollment_id" value="${ studentGrade.id }">
 					<td>
-						
-						<select name="student_grade" id="" class="form-select form-select-sm text-center">
+						<select name="student_grade" id="" class="form-select form-select-sm text-center ${ (!empty errors['student_grade'] && oldEnrollmentId == studentGrade.id) ? 'border border-danger' : '' }">
 							<option value="" <c:if test="${ studentGrade.grade == null }">selected</c:if>>선택</option>
 							<option value="A+" <c:if test="${ studentGrade.grade == 'A+' }">selected</c:if>>A+</option>
 							<option value="A0" <c:if test="${ studentGrade.grade == 'A0' }">selected</c:if>>A0</option>
@@ -54,6 +53,9 @@
 							<option value="D-" <c:if test="${ studentGrade.grade == 'D-' }">selected</c:if>>D-</option>
 							<option value="F"  <c:if test="${ studentGrade.grade == 'F' }">selected</c:if>>F</option>
 						</select>
+						<c:if test="${ (!empty errors['student_grade'] && oldEnrollmentId == studentGrade.id )}">
+							<span style="font-size: 0.8rem;" class="text-danger"><c:out value="${ errors['student_grade'] }"/></span>
+						</c:if>
 					</td>
 					<td>
 						<button type="submit" class="btn btn-primary btn-sm">

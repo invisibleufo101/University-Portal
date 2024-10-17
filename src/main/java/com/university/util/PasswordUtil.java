@@ -20,7 +20,7 @@ public class PasswordUtil {
 	 */
 	public static String hashPassword(String password, byte[] salt) {
 		int iterations = 66536;
-		int keyLength = 256;
+		int keyLength = 256; // 256 * 2 = 512 bits
 		PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, keyLength);
 		
 		SecretKeyFactory factory = null;
